@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jayachandra Gudipadu | .NET Full-Stack Developer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { 
+                        'inter': ['Inter', 'sans-serif'],
+                        'mono': ['JetBrains Mono', 'monospace']
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        * { font-family: 'Inter', sans-serif; font-feature-settings: "cv02", "cv03", "cv04", "cv11"; }
+        ::selection { background: rgba(249, 115, 22, 0.3); color: #fdba74; }
+        body { background: #050505; }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px) scale(0.98);
+            filter: blur(10px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            filter: blur(0);
+        }
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+        .delay-400 { transition-delay: 400ms; }
+        .delay-500 { transition-delay: 500ms; }
+        .delay-600 { transition-delay: 600ms; }
+
+        .hero-gradient {
+            background: linear-gradient(to bottom, #FFFFFF, #FFFFFF, rgba(255,255,255,0.5));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .orange-gradient {
+            background: linear-gradient(135deg, #F97316, #FB923C, #FDBA74);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-glow {
+            position: absolute;
+            width: 800px;
+            height: 500px;
+            background: radial-gradient(ellipse, rgba(249,115,22,0.12), transparent 70%);
+            filter: blur(120px);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .card-glow {
+            position: relative;
+            overflow: hidden;
+        }
+        .card-glow::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(249,115,22,0.06), transparent 40%);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.5s;
+            z-index: 1;
+        }
+        .card-glow:hover::before {
+            opacity: 1;
+        }
+
+        @keyframes ping {
+            75%, 100% { transform: scale(2); opacity: 0; }
+        }
+        .animate-ping-slow {
+            animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        .typing-cursor::after {
+            content: '|';
+            color: #F97316;
+            animation: blink 1s step-end infinite;
+            margin-left: 2px;
+        }
+
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: #F97316;
+            border-radius: 1px;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .grid-pattern {
+            background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        .project-overlay {
+            background: linear-gradient(to top, rgba(5,5,5,0.95), rgba(5,5,5,0.3), transparent);
+        }
+
+        .btn-shine {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-shine::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -100%;
+            width: 50%;
+            height: 200%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+            transform: skewX(-20deg);
+            transition: left 0.7s ease;
+        }
+        .btn-shine:hover::after {
+            left: 150%;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+            animation: marquee 30s linear infinite;
+        }
+
+        .toast {
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+
+        /* ===== FUTURISTIC CODER HUD STYLES ===== */
+        .coder-hud {
+            position: relative;
+            background: rgba(10, 10, 10, 0.8);
+            border: 1px solid rgba(249, 115, 22, 0.25);
+            backdrop-filter: blur(12px);
+            padding: 20px 28px;
+            border-radius: 4px;
+            box-shadow: 0 0 30px rgba(249, 115, 22, 0.15), inset 0 0 20px rgba(0,0,0,0.5);
+            min-width: 320px;
+            overflow: visible;
+        }
+
+        .hud-corner {
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            border-color: #F97316;
+            border-style: solid;
+            transition: all 0.4s ease;
+        }
+        .coder-hud:hover .hud-corner {
+            width: 22px;
+            height: 22px;
+            filter: drop-shadow(0 0 6px #F97316);
+        }
+        .hud-tl { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
+        .hud-tr { top: -1px; right: -1px; border-width: 2px 2px 0 0; }
+        .hud-bl { bottom: -1px; left: -1px; border-width: 0 0 2px 2px; }
+        .hud-br { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+
+        .terminal-line {
+            font-family: 'JetBrains Mono', monospace;
+            color: #F97316;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .terminal-prompt {
+            color: #10b981; /* Emerald for success/proceed */
+            user-select: none;
+        }
+        .terminal-cursor {
+            display: inline-block;
+            width: 8px;
+            height: 17px;
+            background: #F97316;
+            animation: blink-cursor 1s step-end infinite;
+            flex-shrink: 0;
+        }
+
+        .code-particle {
+            position: absolute;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: rgba(249, 115, 22, 0.5);
+            pointer-events: none;
+            text-shadow: 0 0 8px rgba(249, 115, 22, 0.4);
+            user-select: none;
+        }
+
+        @keyframes float-particle-1 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); opacity: 0.5; }
+            50% { transform: translate(5px, -15px) rotate(5deg); opacity: 0.9; }
+        }
+        @keyframes float-particle-2 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); opacity: 0.6; }
+            50% { transform: translate(-8px, 10px) rotate(-5deg); opacity: 1; }
+        }
+        @keyframes float-particle-3 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); opacity: 0.4; }
+            50% { transform: translate(10px, 5px) rotate(8deg); opacity: 0.8; }
+        }
+        @keyframes float-particle-4 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); opacity: 0.5; }
+            50% { transform: translate(-5px, -10px) rotate(-3deg); opacity: 0.9; }
+        }
+
+        @keyframes blink-cursor {
+            50% { opacity: 0; }
+        }
+        
+        /* HUD Scanline Effect */
+        .hud-scanline {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.1));
+            background-size: 100% 4px;
+            pointer-events: none;
+            opacity: 0.15;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body class="bg-[#050505] text-white font-inter antialiased overflow-x-hidden">
+
+    <!-- Ambient Background Glow -->
+    <div class="fixed inset-0 pointer-events-none z-0">
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] bg-orange-500/5 rounded-full blur-[150px]"></div>
+        <div class="absolute bottom-1/4 right-0 w-[600px] h-[400px] bg-orange-500/3 rounded-full blur-[120px]"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 h-16 border-b border-white/[0.06] transition-all duration-300" style="backdrop-filter: blur(24px); background: rgba(5,5,5,0.8);">
+        <div class="max-w-7xl mx-auto px-6 h-full flex items-center justify-between">
+            <a href="#hero" class="flex items-center gap-2.5 group">
+                <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center shadow-lg shadow-orange-500/20 group-hover:shadow-orange-500/40 transition-shadow duration-500">
+                    <span class="text-white font-semibold text-sm">J</span>
+                </div>
+                <span class="text-white font-medium text-sm tracking-tight">Jayachandra<span class="text-orange-500">.</span></span>
+            </a>
+
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#about" class="nav-link text-sm text-slate-400 hover:text-white transition-colors duration-300">About</a>
+                <a href="#skills" class="nav-link text-sm text-slate-400 hover:text-white transition-colors duration-300">Skills</a>
+                <a href="#experience" class="nav-link text-sm text-slate-400 hover:text-white transition-colors duration-300">Experience</a>
+                <a href="#projects" class="nav-link text-sm text-slate-400 hover:text-white transition-colors duration-300">Projects</a>
+                <a href="#education" class="nav-link text-sm text-slate-400 hover:text-white transition-colors duration-300">Education</a>
+                <a href="#contact" class="nav-link text-sm text-slate-400 hover:text-white transition-colors duration-300">Contact</a>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <a href="#contact" class="hidden md:inline-flex items-center gap-2 px-4 py-2 bg-white text-black text-xs font-medium rounded-full hover:bg-slate-200 transition-all duration-150 btn-shine" style="box-shadow: 0 0 20px rgba(255,255,255,0.1);">
+                    Let's Talk
+                    <span class="iconify" data-icon="lucide:arrow-right" data-width="12"></span>
+                </a>
+                <button id="mobileToggle" class="md:hidden w-10 h-10 flex items-center justify-center text-slate-400 hover:text-white transition-colors">
+                    <span class="iconify" data-icon="lucide:menu" data-width="20" id="menuIcon"></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu fixed inset-0 z-40 bg-[#050505]/98" style="backdrop-filter: blur(24px);">
+        <div class="pt-24 px-8 flex flex-col gap-6">
+            <a href="#about" class="mobile-nav-link text-2xl font-medium text-slate-300 hover:text-white transition-colors">About</a>
+            <a href="#skills" class="mobile-nav-link text-2xl font-medium text-slate-300 hover:text-white transition-colors">Skills</a>
+            <a href="#experience" class="mobile-nav-link text-2xl font-medium text-slate-300 hover:text-white transition-colors">Experience</a>
+            <a href="#projects" class="mobile-nav-link text-2xl font-medium text-slate-300 hover:text-white transition-colors">Projects</a>
+            <a href="#education" class="mobile-nav-link text-2xl font-medium text-slate-300 hover:text-white transition-colors">Education</a>
+            <a href="#contact" class="mobile-nav-link text-2xl font-medium text-slate-300 hover:text-white transition-colors">Contact</a>
+            <div class="pt-6 border-t border-white/10">
+                <a href="#contact" class="inline-flex items-center gap-2 px-6 py-3 bg-white text-black text-sm font-medium rounded-full">
+                    Let's Talk
+                    <span class="iconify" data-icon="lucide:arrow-right" data-width="14"></span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative min-h-screen flex items-center justify-center pt-16 overflow-hidden">
+        <div class="hero-glow"></div>
+        <div class="grid-pattern absolute inset-0 opacity-50"></div>
+
+        <div class="relative z-10 max-w-5xl mx-auto px-6 text-center">
+            <div class="reveal inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/[0.03] mb-8">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping-slow absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                </span>
+                <span class="text-xs font-medium text-slate-300">Available for opportunities</span>
+            </div>
+
+            <!-- Name with Futuristic Coder HUD -->
+            <div class="reveal delay-100 flex flex-col md:flex-row items-center justify-center gap-6 md:gap-10 mb-6">
+                <h1 class="hero-gradient text-5xl md:text-7xl lg:text-8xl font-semibold tracking-tighter leading-[1]">
+                    Jayachandra<br>
+                    <span class="orange-gradient">Gudipadu</span>
+                </h1>
+                
+                <!-- Futuristic Animated HUD Terminal -->
+                <div class="relative hidden md:block mt-10">
+                    <!-- Floating Code Particles -->
+                    <div class="code-particle" style="top: -25px; left: -15px; animation: float-particle-1 4s ease-in-out infinite;">{ }</div>
+                    <div class="code-particle" style="top: 0px; right: -45px; animation: float-particle-2 5s ease-in-out infinite 1s;">async</div>
+                    <div class="code-particle" style="bottom: 0px; left: -40px; animation: float-particle-3 6s ease-in-out infinite 0.5s;">< /></div>
+                    <div class="code-particle" style="bottom: -20px; right: -10px; animation: float-particle-4 4.5s ease-in-out infinite 2s;">int?</div>
+                    
+                    <div class="coder-hud">
+                        <div class="hud-scanline"></div>
+                        <div class="hud-corner hud-tl"></div>
+                        <div class="hud-corner hud-tr"></div>
+                        <div class="hud-corner hud-bl"></div>
+                        <div class="hud-corner hud-br"></div>
+                        
+                        <div class="terminal-line">
+                            <span class="terminal-prompt">~$</span>
+                            <span id="terminal-text" class="whitespace-nowrap overflow-hidden"></span>
+                            <span class="terminal-cursor"></span>
+                        </div>
+                        <div class="text-[10px] text-slate-600 mt-2 uppercase tracking-widest font-medium flex items-center gap-1.5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_6px_#10b981]"></span>
+                            System Online • v1.0.0
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reveal delay-200 mb-8">
+                <span class="typing-cursor text-lg md:text-xl font-light text-slate-300 tracking-wide">.NET Full-Stack Developer</span>
+            </div>
+
+            <p class="reveal delay-300 text-base md:text-lg font-light text-slate-400 max-w-2xl mx-auto leading-relaxed tracking-wide mb-10">
+                Results-driven developer with 12+ months of professional experience designing and delivering scalable web applications in healthcare technology.
+            </p>
+
+            <div class="reveal delay-400 flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#projects" class="group inline-flex items-center gap-2 px-8 py-3.5 bg-white text-black text-sm font-medium rounded-full hover:bg-slate-200 transition-all duration-150 btn-shine" style="box-shadow: 0 0 20px rgba(255,255,255,0.1);">
+                    View My Work
+                    <span class="iconify group-hover:translate-x-0.5 transition-transform" data-icon="lucide:arrow-right" data-width="14"></span>
+                </a>
+                <a href="#contact" class="group inline-flex items-center gap-2 px-8 py-3.5 bg-transparent text-white text-sm font-medium rounded-full border border-white/10 hover:border-white/20 hover:bg-white/[0.03] transition-all duration-150">
+                    Get In Touch
+                    <span class="iconify group-hover:translate-x-0.5 transition-transform" data-icon="lucide:mail" data-width="14"></span>
+                </a>
+            </div>
+
+            <div class="reveal delay-500 mt-20 flex flex-col items-center gap-2">
+                <span class="text-[10px] uppercase tracking-widest text-slate-600 font-medium">Scroll</span>
+                <div class="w-5 h-8 rounded-full border border-white/10 flex items-start justify-center p-1.5">
+                    <div class="w-1 h-2 rounded-full bg-orange-500 animate-bounce"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Marquee Strip -->
+    <div class="relative border-y border-white/[0.06] py-4 overflow-hidden">
+        <div class="animate-marquee flex whitespace-nowrap">
+            <div class="flex items-center gap-8 mr-8">
+                <span class="text-xs font-medium text-slate-600 uppercase tracking-widest">ASP.NET Core</span>
+                <span class="text-orange-500/40">◆</span>
+                <span class="text-xs font-medium text-slate-600 uppercase tracking-widest">C#</span>
+                <span class="text-orange-500/40">◆</span>
+                <span class="text-xs font-medium text-slate-600 uppercase tracking-widest">React</span>
+                <span class="text-orange-500/40">◆</span>
+                <span class="text-xs font-medium text-slate-600 uppercase tracking-widest">SQL Server</span>
+                <span class="text-orange-500/40">◆</span>
+                <span class="text-xs font-medium text-slate-600 uppercase tracking-widest">Node.js</span>
+                <span class="text-orange-500/40">◆</span>
+                <span class="text-xs font-medium text-slate-600 uppercase tracking-widest">Tailwind CSS</span>
+                <span class="text-orange-500/40">◆</span>
+                <span class="text-xs font-medium text-slate-600 uppercase tracking-widest">AWS S3</span>
+                <span class="text-orange-500/40">◆</span>
+                <span class="text-xs font-medium text-slate-600 uppercase tracking-widest">Redis</span>
+                <span class="text-orange-500/40">◆</span>
+                <span class="text-xs font-medium text-slate-600 uppercase tracking-widest">Redux Thunk</span>
+                <span class="text-orange-500/40">◆</span>
+                <span class="text-xs font-medium text-slate-600 uppercase tracking-widest">JavaScript</span>
+                <span class="text-orange-500/40">◆</span>
+            </div>
+            <div class="flex items-center gap-8 mr-8">
+                <span class="text-xs font-medium text-slate-600 uppercase tracking-widest">ASP.NET Core</span>
+                <span class="text-orange-500/40">◆</span>
+                <span class="text-xs font-medium text-slate-600 uppercase tracking-widest">C#</span>
+                <span class="text-orange-500/40">◆</span>
+                <span class="text-xs font-medium text-slate-600 uppercase tracking-widest">React</span>
+                <span class="text-orange-500/40">◆</span>
+                <span class="text-xs font-medium text-slate-600 uppercase tracking-widest">SQL Server</span>
+                <span class="text-orange-500/40">◆</span>
+                <span class="text-xs font-medium text-slate-600 uppercase tracking-widest">Node.js</span>
+                <span class="text-orange-500/40">◆</span>
+                <span class="text-xs font-medium text-slate-600 uppercase tracking-widest">Tailwind CSS</span>
+                <span class="text-orange-500/40">◆</span>
+                <span class="text-xs font-medium text-slate-600 uppercase tracking-widest">AWS S3</span>
+                <span class="text-orange-500/40">◆</span>
+                <span class="text-xs font-medium text-slate-600 uppercase tracking-widest">Redis</span>
+                <span class="text-orange-500/40">◆</span>
+                <span class="text-xs font-medium text-slate-600 uppercase tracking-widest">Redux Thunk</span>
+                <span class="text-orange-500/40">◆</span>
+                <span class="text-xs font-medium text-slate-600 uppercase tracking-widest">JavaScript</span>
+                <span class="text-orange-500/40">◆</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section id="about" class="relative py-32">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="reveal mb-16">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-8 h-[1px] bg-orange-500"></div>
+                    <span class="text-[10px] uppercase tracking-widest text-orange-500 font-semibold">About Me</span>
+                </div>
+                <h2 class="text-3xl md:text-5xl font-semibold tracking-tight leading-tight hero-gradient">Building digital<br>experiences that matter</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-start">
+                <div class="reveal delay-100">
+                    <p class="text-base md:text-lg font-light text-slate-300 leading-relaxed mb-6">
+                        Results-driven .NET Full-Stack Developer with 12+ months of professional experience designing and delivering scalable web applications in a healthcare technology environment.
+                    </p>
+                    <p class="text-base font-light text-slate-400 leading-relaxed mb-8">
+                        Proficient in ASP.NET Core, C#, SQL Server, and React, with hands-on ownership of both backend Web API development and frontend implementation. Known for rapid adoption of new technologies, writing clean and maintainable code, and independently delivering end-to-end solutions across healthcare and biopharmaceutical domains.
+                    </p>
+
+                    <div class="grid grid-cols-3 gap-6">
+                        <div class="text-center md:text-left">
+                            <div class="text-2xl md:text-3xl font-semibold text-white counter-value" data-target="12" data-suffix="+">0</div>
+                            <div class="text-xs text-slate-500 mt-1">Months Exp.</div>
+                        </div>
+                        <div class="text-center md:text-left">
+                            <div class="text-2xl md:text-3xl font-semibold text-white counter-value" data-target="5" data-suffix="+">0</div>
+                            <div class="text-xs text-slate-500 mt-1">Projects</div>
+                        </div>
+                        <div class="text-center md:text-left">
+                            <div class="text-2xl md:text-3xl font-semibold text-white counter-value" data-target="3" data-suffix="">0</div>
+                            <div class="text-xs text-slate-500 mt-1">Certifications</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="reveal delay-200 card-glow p-5 rounded-2xl border border-white/[0.06] bg-white/[0.02] hover:border-white/[0.12] transition-colors">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center flex-shrink-0">
+                                <span class="iconify text-orange-500" data-icon="lucide:map-pin" data-width="18"></span>
+                            </div>
+                            <div>
+                                <div class="text-xs text-slate-500 font-medium uppercase tracking-wider">Location</div>
+                                <div class="text-sm text-white mt-0.5">Bengaluru, India</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="reveal delay-300 card-glow p-5 rounded-2xl border border-white/[0.06] bg-white/[0.02] hover:border-white/[0.12] transition-colors">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center flex-shrink-0">
+                                <span class="iconify text-orange-500" data-icon="lucide:mail" data-width="18"></span>
+                            </div>
+                            <div>
+                                <div class="text-xs text-slate-500 font-medium uppercase tracking-wider">Email</div>
+                                <a href="mailto:jayachandra5550@gmail.com" class="text-sm text-orange-400 hover:text-orange-300 transition-colors mt-0.5">jayachandra5550@gmail.com</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="reveal delay-400 card-glow p-5 rounded-2xl border border-white/[0.06] bg-white/[0.02] hover:border-white/[0.12] transition-colors">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center flex-shrink-0">
+                                <span class="iconify text-orange-500" data-icon="lucide:phone" data-width="18"></span>
+                            </div>
+                            <div>
+                                <div class="text-xs text-slate-500 font-medium uppercase tracking-wider">Phone</div>
+                                <a href="tel:+918341914363" class="text-sm text-white hover:text-orange-400 transition-colors mt-0.5">+91 83419 14363</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="reveal delay-500 card-glow p-5 rounded-2xl border border-white/[0.06] bg-white/[0.02] hover:border-white/[0.12] transition-colors flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center flex-shrink-0">
+                            <span class="iconify text-orange-500" data-icon="lucide:linkedin" data-width="18"></span>
+                        </div>
+                        <div>
+                            <div class="text-xs text-slate-500 font-medium uppercase tracking-wider">LinkedIn</div>
+                            <a href="https://linkedin.com/in/jayachandra-gudipadu" target="_blank" class="text-sm text-orange-400 hover:text-orange-300 transition-colors mt-0.5">jayachandra-gudipadu</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="relative py-32">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="reveal mb-16">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-8 h-[1px] bg-orange-500"></div>
+                    <span class="text-[10px] uppercase tracking-widest text-orange-500 font-semibold">Skills & Tools</span>
+                </div>
+                <h2 class="text-3xl md:text-5xl font-semibold tracking-tight hero-gradient">My technical arsenal</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="reveal delay-100 card-glow p-8 rounded-2xl border border-white/[0.06] bg-white/[0.02] hover:border-white/[0.12] transition-colors group">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <span class="iconify text-blue-400" data-icon="lucide:code-2" data-width="20"></span>
+                        </div>
+                        <h3 class="text-xl font-medium tracking-tight">Programming & Querying</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1.5 text-xs font-medium text-slate-300 bg-white/[0.05] border border-white/[0.06] rounded-lg hover:border-orange-500/30 hover:bg-orange-500/5 transition-all cursor-default">C#</span>
+                        <span class="px-3 py-1.5 text-xs font-medium text-slate-300 bg-white/[0.05] border border-white/[0.06] rounded-lg hover:border-orange-500/30 hover:bg-orange-500/5 transition-all cursor-default">JavaScript</span>
+                        <span class="px-3 py-1.5 text-xs font-medium text-slate-300 bg-white/[0.05] border border-white/[0.06] rounded-lg hover:border-orange-500/30 hover:bg-orange-500/5 transition-all cursor-default">SQL</span>
+                    </div>
+                </div>
+
+                <div class="reveal delay-200 card-glow p-8 rounded-2xl border border-white/[0.06] bg-white/[0.02] hover:border-white/[0.12] transition-colors group">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <span class="iconify text-purple-400" data-icon="lucide:layers" data-width="20"></span>
+                        </div>
+                        <h3 class="text-xl font-medium tracking-tight">Frameworks & Libraries</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1.5 text-xs font-medium text-slate-300 bg-white/[0.05] border border-white/[0.06] rounded-lg hover:border-orange-500/30 hover:bg-orange-500/5 transition-all cursor-default">.NET / ASP.NET Core</span>
+                        <span class="px-3 py-1.5 text-xs font-medium text-slate-300 bg-white/[0.05] border border-white/[0.06] rounded-lg hover:border-orange-500/30 hover:bg-orange-500/5 transition-all cursor-default">React</span>
+                        <span class="px-3 py-1.5 text-xs font-medium text-slate-300 bg-white/[0.05] border border-white/[0.06] rounded-lg hover:border-orange-500/30 hover:bg-orange-500/5 transition-all cursor-default">Node.js</span>
+                        <span class="px-3 py-1.5 text-xs font-medium text-slate-300 bg-white/[0.05] border border-white/[0.06] rounded-lg hover:border-orange-500/30 hover:bg-orange-500/5 transition-all cursor-default">Redux Thunk</span>
+                    </div>
+                </div>
+
+                <div class="reveal delay-300 card-glow p-8 rounded-2xl border border-white/[0.06] bg-white/[0.02] hover:border-white/[0.12] transition-colors group">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <span class="iconify text-emerald-400" data-icon="lucide:globe" data-width="20"></span>
+                        </div>
+                        <h3 class="text-xl font-medium tracking-tight">Core Web Technologies</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1.5 text-xs font-medium text-slate-300 bg-white/[0.05] border border-white/[0.06] rounded-lg hover:border-orange-500/30 hover:bg-orange-500/5 transition-all cursor-default">HTML</span>
+                        <span class="px-3 py-1.5 text-xs font-medium text-slate-300 bg-white/[0.05] border border-white/[0.06] rounded-lg hover:border-orange-500/30 hover:bg-orange-500/5 transition-all cursor-default">CSS</span>
+                        <span class="px-3 py-1.5 text-xs font-medium text-slate-300 bg-white/[0.05] border border-white/[0.06] rounded-lg hover:border-orange-500/30 hover:bg-orange-500/5 transition-all cursor-default">Tailwind CSS</span>
+                    </div>
+                </div>
+
+                <div class="reveal delay-400 card-glow p-8 rounded-2xl border border-white/[0.06] bg-white/[0.02] hover:border-white/[0.12] transition-colors group">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <span class="iconify text-amber-400" data-icon="lucide:database" data-width="20"></span>
+                        </div>
+                        <h3 class="text-xl font-medium tracking-tight">Database & Caching</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1.5 text-xs font-medium text-slate-300 bg-white/[0.05] border border-white/[0.06] rounded-lg hover:border-orange-500/30 hover:bg-orange-500/5 transition-all cursor-default">SQL Server</span>
+                        <span class="px-3 py-1.5 text-xs font-medium text-slate-300 bg-white/[0.05] border border-white/[0.06] rounded-lg hover:border-orange-500/30 hover:bg-orange-500/5 transition-all cursor-default">Stored Procedures</span>
+                        <span class="px-3 py-1.5 text-xs font-medium text-slate-300 bg-white/[0.05] border border-white/[0.06] rounded-lg hover:border-orange-500/30 hover:bg-orange-500/5 transition-all cursor-default">Redis (Upstash)</span>
+                    </div>
+                </div>
+
+                <div class="reveal delay-500 card-glow p-8 rounded-2xl border border-white/[0.06] bg-white/[0.02] hover:border-white/[0.12] transition-colors group">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 rounded-xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <span class="iconify text-sky-400" data-icon="lucide:cloud" data-width="20"></span>
+                        </div>
+                        <h3 class="text-xl font-medium tracking-tight">Cloud & Auth</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1.5 text-xs font-medium text-slate-300 bg-white/[0.05] border border-white/[0.06] rounded-lg hover:border-orange-500/30 hover:bg-orange-500/5 transition-all cursor-default">AWS S3</span>
+                        <span class="px-3 py-1.5 text-xs font-medium text-slate-300 bg-white/[0.05] border border-white/[0.06] rounded-lg hover:border-orange-500/30 hover:bg-orange-500/5 transition-all cursor-default">JWT Authentication</span>
+                        <span class="px-3 py-1.5 text-xs font-medium text-slate-300 bg-white/[0.05] border border-white/[0.06] rounded-lg hover:border-orange-500/30 hover:bg-orange-500/5 transition-all cursor-default">Role-Based Authorization</span>
+                    </div>
+                </div>
+
+                <div class="reveal delay-600 card-glow p-8 rounded-2xl border border-white/[0.06] bg-white/[0.02] hover:border-white/[0.12] transition-colors group">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 rounded-xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <span class="iconify text-rose-400" data-icon="lucide:wrench" data-width="20"></span>
+                        </div>
+                        <h3 class="text-xl font-medium tracking-tight">Developer Tools</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1.5 text-xs font-medium text-slate-300 bg-white/[0.05] border border-white/[0.06] rounded-lg hover:border-orange-500/30 hover:bg-orange-500/5 transition-all cursor-default">Git</span>
+                        <span class="px-3 py-1.5 text-xs font-medium text-slate-300 bg-white/[0.05] border border-white/[0.06] rounded-lg hover:border-orange-500/30 hover:bg-orange-500/5 transition-all cursor-default">GitHub</span>
+                        <span class="px-3 py-1.5 text-xs font-medium text-slate-300 bg-white/[0.05] border border-white/[0.06] rounded-lg hover:border-orange-500/30 hover:bg-orange-500/5 transition-all cursor-default">Webpack</span>
+                        <span class="px-3 py-1.5 text-xs font-medium text-slate-300 bg-white/[0.05] border border-white/[0.06] rounded-lg hover:border-orange-500/30 hover:bg-orange-500/5 transition-all cursor-default">Visual Studio</span>
+                        <span class="px-3 py-1.5 text-xs font-medium text-slate-300 bg-white/[0.05] border border-white/[0.06] rounded-lg hover:border-orange-500/30 hover:bg-orange-500/5 transition-all cursor-default">VS Code</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="relative py-32">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="reveal mb-16">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-8 h-[1px] bg-orange-500"></div>
+                    <span class="text-[10px] uppercase tracking-widest text-orange-500 font-semibold">Experience</span>
+                </div>
+                <h2 class="text-3xl md:text-5xl font-semibold tracking-tight hero-gradient">Where I've worked</h2>
+            </div>
+
+            <div class="reveal delay-100 card-glow rounded-2xl border border-white/[0.06] bg-white/[0.02] overflow-hidden">
+                <div class="p-8 md:p-10 border-b border-white/[0.06]">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                        <div class="flex items-center gap-4">
+                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-orange-500/20 to-orange-600/10 border border-orange-500/20 flex items-center justify-center flex-shrink-0">
+                                <span class="text-xl font-bold text-orange-500">A</span>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-medium tracking-tight">ACN Healthcare</h3>
+                                <p class="text-sm text-slate-400 mt-0.5">Bengaluru, India</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="px-3 py-1 text-xs font-medium text-orange-400 bg-orange-500/10 border border-orange-500/20 rounded-full">Full-Time</span>
+                            <span class="text-sm text-slate-500">June 2025 – Present</span>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <p class="text-sm font-medium text-slate-300">.NET Full-Stack Developer <span class="text-slate-500 font-normal">(Software Engineering Trainee)</span></p>
+                    </div>
+                </div>
+
+                <div class="p-8 md:p-10">
+                    <div class="grid gap-4">
+                        <div class="flex gap-4 group">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-lg bg-orange-500/10 flex items-center justify-center mt-0.5 group-hover:bg-orange-500/20 transition-colors">
+                                <span class="iconify text-orange-500" data-icon="lucide:server" data-width="14"></span>
+                            </div>
+                            <p class="text-sm text-slate-400 leading-relaxed">Acted as a Full-Stack Developer, independently owning both backend Web API development using <span class="text-slate-200">ASP.NET Core (C#)</span> and frontend user interface implementation using <span class="text-slate-200">ASP.NET, HTML, and CSS</span>, delivering complete end-to-end features across multiple healthcare projects.</p>
+                        </div>
+                        <div class="flex gap-4 group">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-lg bg-orange-500/10 flex items-center justify-center mt-0.5 group-hover:bg-orange-500/20 transition-colors">
+                                <span class="iconify text-orange-500" data-icon="lucide:plug" data-width="14"></span>
+                            </div>
+                            <p class="text-sm text-slate-400 leading-relaxed">Designed and developed <span class="text-slate-200">RESTful Web APIs</span> in ASP.NET Core (C#), writing optimized SQL Server stored procedures and queries to support complex business logic across healthcare modules.</p>
+                        </div>
+                        <div class="flex gap-4 group">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-lg bg-orange-500/10 flex items-center justify-center mt-0.5 group-hover:bg-orange-500/20 transition-colors">
+                                <span class="iconify text-orange-500" data-icon="lucide:shield-check" data-width="14"></span>
+                            </div>
+                            <p class="text-sm text-slate-400 leading-relaxed">Implemented <span class="text-slate-200">authentication with role-based authorization</span> to enforce secure, controlled access to sensitive healthcare data across applications.</p>
+                        </div>
+                        <div class="flex gap-4 group">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-lg bg-orange-500/10 flex items-center justify-center mt-0.5 group-hover:bg-orange-500/20 transition-colors">
+                                <span class="iconify text-orange-500" data-icon="lucide:zap" data-width="14"></span>
+                            </div>
+                            <p class="text-sm text-slate-400 leading-relaxed">Utilized <span class="text-slate-200">Redis (Upstash)</span> for API caching and session management, significantly reducing database load and improving response times.</p>
+                        </div>
+                        <div class="flex gap-4 group">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-lg bg-orange-500/10 flex items-center justify-center mt-0.5 group-hover:bg-orange-500/20 transition-colors">
+                                <span class="iconify text-orange-500" data-icon="lucide:monitor-smartphone" data-width="14"></span>
+                            </div>
+                            <p class="text-sm text-slate-400 leading-relaxed">Built responsive and accessible UI components using <span class="text-slate-200">HTML and Tailwind CSS</span>, integrating frontend layouts seamlessly with ASP.NET views to ensure a consistent user experience across devices.</p>
+                        </div>
+                        <div class="flex gap-4 group">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-lg bg-orange-500/10 flex items-center justify-center mt-0.5 group-hover:bg-orange-500/20 transition-colors">
+                                <span class="iconify text-orange-500" data-icon="lucide:bug" data-width="14"></span>
+                            </div>
+                            <p class="text-sm text-slate-400 leading-relaxed">Diagnosed and resolved critical backend and frontend bugs, including <span class="text-slate-200">SQL logic errors and API failures</span>, improving overall application stability and user experience.</p>
+                        </div>
+                        <div class="flex gap-4 group">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-lg bg-orange-500/10 flex items-center justify-center mt-0.5 group-hover:bg-orange-500/20 transition-colors">
+                                <span class="iconify text-orange-500" data-icon="lucide:upload-cloud" data-width="14"></span>
+                            </div>
+                            <p class="text-sm text-slate-400 leading-relaxed">Integrated server for secure file and image storage, and implemented <span class="text-slate-200">debouncing</span> techniques to optimize API call frequency and enhance UI responsiveness.</p>
+                        </div>
+                        <div class="flex gap-4 group">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-lg bg-orange-500/10 flex items-center justify-center mt-0.5 group-hover:bg-orange-500/20 transition-colors">
+                                <span class="iconify text-orange-500" data-icon="lucide:users" data-width="14"></span>
+                            </div>
+                            <p class="text-sm text-slate-400 leading-relaxed">Contributed to an internal HR application by developing <span class="text-slate-200">Payroll, Appraisal, and Onboarding</span> modules using .NET Web APIs and SQL Server, collaborating with cross-functional teams under agile workflows.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="relative py-32">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="reveal mb-16">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-8 h-[1px] bg-orange-500"></div>
+                    <span class="text-[10px] uppercase tracking-widest text-orange-500 font-semibold">Projects</span>
+                </div>
+                <h2 class="text-3xl md:text-5xl font-semibold tracking-tight hero-gradient">Featured work</h2>
+            </div>
+
+            <div class="grid gap-8">
+                <!-- Project 1: Azalea Payment Posting -->
+                <div class="reveal delay-100 card-glow rounded-2xl border border-white/[0.06] bg-white/[0.02] hover:border-white/[0.12] transition-all overflow-hidden group">
+                    <div class="grid md:grid-cols-5 gap-0">
+                        <div class="md:col-span-2 relative overflow-hidden min-h-[250px] md:min-h-[350px]">
+                            <img src="https://picsum.photos/seed/azalea-payment-audit/800/600.jpg" alt="Azalea Payment Posting" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                            <div class="project-overlay absolute inset-0"></div>
+                            <div class="absolute top-4 left-4 z-10">
+                                <span class="px-3 py-1 text-[10px] font-semibold uppercase tracking-widest bg-orange-500 text-white rounded-full">Healthcare</span>
+                            </div>
+                        </div>
+                        <div class="md:col-span-3 p-8 md:p-10 flex flex-col justify-center">
+                            <div class="text-xs text-slate-500 font-medium uppercase tracking-wider mb-2">ACN Healthcare</div>
+                            <h3 class="text-2xl font-medium tracking-tight mb-4">Azalea – Payment Posting</h3>
+                            <div class="space-y-3 mb-6">
+                                <div class="flex gap-3">
+                                    <span class="iconify text-orange-500/60 mt-1 flex-shrink-0" data-icon="lucide:check" data-width="14"></span>
+                                    <p class="text-sm text-slate-400 leading-relaxed">Developed all audit-related screens for a healthcare payment posting module, enabling end-to-end visibility into payment transactions and audit trails.</p>
+                                </div>
+                                <div class="flex gap-3">
+                                    <span class="iconify text-orange-500/60 mt-1 flex-shrink-0" data-icon="lucide:check" data-width="14"></span>
+                                    <p class="text-sm text-slate-400 leading-relaxed">Engineered backend Web APIs in ASP.NET Core to handle audit calculations, data aggregation, and business rule enforcement using SQL Server stored procedures.</p>
+                                </div>
+                                <div class="flex gap-3">
+                                    <span class="iconify text-orange-500/60 mt-1 flex-shrink-0" data-icon="lucide:check" data-width="14"></span>
+                                    <p class="text-sm text-slate-400 leading-relaxed">Implemented dynamic data rendering on the frontend using <span class="text-slate-300">React</span>, ensuring real-time reflection of payment and audit status updates.</p>
+                                </div>
+                            </div>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-2 py-1 text-[10px] font-medium text-slate-400 bg-white/[0.05] border border-white/[0.06] rounded">ASP.NET Core</span>
+                                <span class="px-2 py-1 text-[10px] font-medium text-slate-400 bg-white/[0.05] border border-white/[0.06] rounded">React</span>
+                                <span class="px-2 py-1 text-[10px] font-medium text-slate-400 bg-white/[0.05] border border-white/[0.06] rounded">SQL Server</span>
+                                <span class="px-2 py-1 text-[10px] font-medium text-slate-400 bg-white/[0.05] border border-white/[0.06] rounded">Tailwind CSS</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2: Azalea ERA -->
+                <div class="reveal delay-200 card-glow rounded-2xl border border-white/[0.06] bg-white/[0.02] hover:border-white/[0.12] transition-all overflow-hidden group">
+                    <div class="grid md:grid-cols-5 gap-0">
+                        <div class="md:col-span-2 relative overflow-hidden min-h-[250px] md:min-h-[350px] md:order-2">
+                            <img src="https://picsum.photos/seed/azalea-era-remittance/800/600.jpg" alt="Azalea ERA" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                            <div class="project-overlay absolute inset-0"></div>
+                            <div class="absolute top-4 left-4 z-10">
+                                <span class="px-3 py-1 text-[10px] font-semibold uppercase tracking-widest bg-orange-500 text-white rounded-full">Healthcare</span>
+                            </div>
+                        </div>
+                        <div class="md:col-span-3 md:order-1 p-8 md:p-10 flex flex-col justify-center">
+                            <div class="text-xs text-slate-500 font-medium uppercase tracking-wider mb-2">ACN Healthcare</div>
+                            <h3 class="text-2xl font-medium tracking-tight mb-4">Azalea – ERA (Electronic Remittance Advice)</h3>
+                            <div class="space-y-3 mb-6">
+                                <div class="flex gap-3">
+                                    <span class="iconify text-orange-500/60 mt-1 flex-shrink-0" data-icon="lucide:check" data-width="14"></span>
+                                    <p class="text-sm text-slate-400 leading-relaxed">Independently developed the complete UI layer for the ERA module, including all transition screens, data grids, and workflow navigation components from scratch.</p>
+                                </div>
+                                <div class="flex gap-3">
+                                    <span class="iconify text-orange-500/60 mt-1 flex-shrink-0" data-icon="lucide:check" data-width="14"></span>
+                                    <p class="text-sm text-slate-400 leading-relaxed">Designed and implemented state transition flows to represent ERA processing stages, ensuring accurate status tracking and user-friendly interactions.</p>
+                                </div>
+                                <div class="flex gap-3">
+                                    <span class="iconify text-orange-500/60 mt-1 flex-shrink-0" data-icon="lucide:check" data-width="14"></span>
+                                    <p class="text-sm text-slate-400 leading-relaxed">Built and integrated corresponding backend APIs to fetch, process, and persist ERA data, collaborating closely with business stakeholders to align with healthcare remittance standards.</p>
+                                </div>
+                            </div>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-2 py-1 text-[10px] font-medium text-slate-400 bg-white/[0.05] border border-white/[0.06] rounded">ASP.NET Core</span>
+                                <span class="px-2 py-1 text-[10px] font-medium text-slate-400 bg-white/[0.05] border border-white/[0.06] rounded">HTML / CSS</span>
+                                <span class="px-2 py-1 text-[10px] font-medium text-slate-400 bg-white/[0.05] border border-white/[0.06] rounded">REST API</span>
+                                <span class="px-2 py-1 text-[10px] font-medium text-slate-400 bg-white/[0.05] border border-white/[0.06] rounded">SQL Server</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3: ACN Optimization -->
+                <div class="reveal delay-300 card-glow rounded-2xl border border-white/[0.06] bg-white/[0.02] hover:border-white/[0.12] transition-all overflow-hidden group">
+                    <div class="grid md:grid-cols-5 gap-0">
+                        <div class="md:col-span-2 relative overflow-hidden min-h-[250px] md:min-h-[350px]">
+                            <img src="https://picsum.photos/seed/acn-optimization-perf/800/600.jpg" alt="ACN Optimization" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                            <div class="project-overlay absolute inset-0"></div>
+                            <div class="absolute top-4 left-4 z-10">
+                                <span class="px-3 py-1 text-[10px] font-semibold uppercase tracking-widest bg-emerald-500 text-white rounded-full">Internal Tool</span>
+                            </div>
+                        </div>
+                        <div class="md:col-span-3 p-8 md:p-10 flex flex-col justify-center">
+                            <div class="text-xs text-slate-500 font-medium uppercase tracking-wider mb-2">ACN Healthcare</div>
+                            <h3 class="text-2xl font-medium tracking-tight mb-4">ACN Optimization (Internal Tool)</h3>
+                            <div class="space-y-3 mb-6">
+                                <div class="flex gap-3">
+                                    <span class="iconify text-orange-500/60 mt-1 flex-shrink-0" data-icon="lucide:check" data-width="14"></span>
+                                    <p class="text-sm text-slate-400 leading-relaxed">Contributed to an internal optimization initiative aimed at improving system performance and operational efficiency across ACN's healthcare platform.</p>
+                                </div>
+                                <div class="flex gap-3">
+                                    <span class="iconify text-orange-500/60 mt-1 flex-shrink-0" data-icon="lucide:check" data-width="14"></span>
+                                    <p class="text-sm text-slate-400 leading-relaxed">Identified and resolved performance bottlenecks in SQL Server queries and API response times through query optimization and caching strategies using Redis.</p>
+                                </div>
+                                <div class="flex gap-3">
+                                    <span class="iconify text-orange-500/60 mt-1 flex-shrink-0" data-icon="lucide:check" data-width="14"></span>
+                                    <p class="text-sm text-slate-400 leading-relaxed">Collaborated with the team to refactor and modularize legacy code, improving maintainability and reducing technical debt across backend services.</p>
+                                </div>
+                            </div>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-2 py-1 text-[10px] font-medium text-slate-400 bg-white/[0.05] border border-white/[0.06] rounded">SQL Server</span>
+                                <span class="px-2 py-1 text-[10px] font-medium text-slate-400 bg-white/[0.05] border border-white/[0.06] rounded">Redis</span>
+                                <span class="px-2 py-1 text-[10px] font-medium text-slate-400 bg-white/[0.05] border border-white/[0.06] rounded">.NET</span>
+                                <span class="px-2 py-1 text-[10px] font-medium text-slate-400 bg-white/[0.05] border border-white/[0.06] rounded">Refactoring</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4: Sign Language to Text & Voice Converter -->
+                <div class="reveal delay-400 card-glow rounded-2xl border border-white/[0.06] bg-white/[0.02] hover:border-white/[0.12] transition-all overflow-hidden group">
+                    <div class="grid md:grid-cols-5 gap-0">
+                        <div class="md:col-span-2 relative overflow-hidden min-h-[250px] md:min-h-[350px] md:order-2">
+                            <img src="https://picsum.photos/seed/sign-language-iot-gesture/800/600.jpg" alt="Sign Language Converter" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                            <div class="project-overlay absolute inset-0"></div>
+                            <div class="absolute top-4 left-4 z-10">
+                                <span class="px-3 py-1 text-[10px] font-semibold uppercase tracking-widest bg-purple-500 text-white rounded-full">IoT Project</span>
+                            </div>
+                        </div>
+                        <div class="md:col-span-3 md:order-1 p-8 md:p-10 flex flex-col justify-center">
+                            <div class="text-xs text-slate-500 font-medium uppercase tracking-wider mb-2">Accessibility Tech</div>
+                            <h3 class="text-2xl font-medium tracking-tight mb-4">Sign Language to Text & Voice Converter</h3>
+                            <div class="space-y-3 mb-6">
+                                <div class="flex gap-3">
+                                    <span class="iconify text-orange-500/60 mt-1 flex-shrink-0" data-icon="lucide:check" data-width="14"></span>
+                                    <p class="text-sm text-slate-400 leading-relaxed">Developed an IoT-based system that translates sign language gestures into real-time text and voice output, enhancing communication accessibility for the hearing and speech impaired.</p>
+                                </div>
+                                <div class="flex gap-3">
+                                    <span class="iconify text-orange-500/60 mt-1 flex-shrink-0" data-icon="lucide:check" data-width="14"></span>
+                                    <p class="text-sm text-slate-400 leading-relaxed">Integrated flex sensors and accelerometer modules to accurately capture hand movements and gesture patterns, processing them through embedded logic for precise conversion.</p>
+                                </div>
+                                <div class="flex gap-3">
+                                    <span class="iconify text-orange-500/60 mt-1 flex-shrink-0" data-icon="lucide:check" data-width="14"></span>
+                                    <p class="text-sm text-slate-400 leading-relaxed">Designed the solution focusing on accessibility, bridging the communication gap by converting complex sensor data into understandable speech and text formats.</p>
+                                </div>
+                            </div>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-2 py-1 text-[10px] font-medium text-slate-400 bg-white/[0.05] border border-white/[0.06] rounded">IoT</span>
+                                <span class="px-2 py-1 text-[10px] font-medium text-slate-400 bg-white/[0.05] border border-white/[0.06] rounded">Embedded Systems</span>
+                                <span class="px-2 py-1 text-[10px] font-medium text-slate-400 bg-white/[0.05] border border-white/[0.06] rounded">Sensor Integration</span>
+                                <span class="px-2 py-1 text-[10px] font-medium text-slate-400 bg-white/[0.05] border border-white/[0.06] rounded">Accessibility</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 5: Sensor Guided Robotics -->
+                <div class="reveal delay-500 card-glow rounded-2xl border border-white/[0.06] bg-white/[0.02] hover:border-white/[0.12] transition-all overflow-hidden group">
+                    <div class="grid md:grid-cols-5 gap-0">
+                        <div class="md:col-span-2 relative overflow-hidden min-h-[250px] md:min-h-[350px]">
+                            <img src="https://picsum.photos/seed/sensor-guided-robotics-workshop/800/600.jpg" alt="Sensor Guided Robotics" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                            <div class="project-overlay absolute inset-0"></div>
+                            <div class="absolute top-4 left-4 z-10">
+                                <span class="px-3 py-1 text-[10px] font-semibold uppercase tracking-widest bg-blue-500 text-white rounded-full">Robotics</span>
+                            </div>
+                        </div>
+                        <div class="md:col-span-3 p-8 md:p-10 flex flex-col justify-center">
+                            <div class="text-xs text-slate-500 font-medium uppercase tracking-wider mb-2">SMART ARENA Workshop</div>
+                            <h3 class="text-2xl font-medium tracking-tight mb-4">Sensor Guided Robotics</h3>
+                            <div class="space-y-3 mb-6">
+                                <div class="flex gap-3">
+                                    <span class="iconify text-orange-500/60 mt-1 flex-shrink-0" data-icon="lucide:check" data-width="14"></span>
+                                    <p class="text-sm text-slate-400 leading-relaxed">Built a sensor-guided robot during the SMART ARENA workshop, capable of navigating its environment through multiple sensor-based control mechanisms.</p>
+                                </div>
+                                <div class="flex gap-3">
+                                    <span class="iconify text-orange-500/60 mt-1 flex-shrink-0" data-icon="lucide:check" data-width="14"></span>
+                                    <p class="text-sm text-slate-400 leading-relaxed">Implemented various sensor integrations allowing the robot to react to environmental stimuli, including obstacle detection and autonomous path navigation.</p>
+                                </div>
+                                <div class="flex gap-3">
+                                    <span class="iconify text-orange-500/60 mt-1 flex-shrink-0" data-icon="lucide:check" data-width="14"></span>
+                                    <p class="text-sm text-slate-400 leading-relaxed">Gained hands-on experience in hardware assembly, sensor calibration, and real-time control logic for robotic movement and response systems.</p>
+                                </div>
+                            </div>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-2 py-1 text-[10px] font-medium text-slate-400 bg-white/[0.05] border border-white/[0.06] rounded">Robotics</span>
+                                <span class="px-2 py-1 text-[10px] font-medium text-slate-400 bg-white/[0.05] border border-white/[0.06] rounded">Sensor Integration</span>
+                                <span class="px-2 py-1 text-[10px] font-medium text-slate-400 bg-white/[0.05] border border-white/[0.06] rounded">Embedded C</span>
+                                <span class="px-2 py-1 text-[10px] font-medium text-slate-400 bg-white/[0.05] border border-white/[0.06] rounded">Hardware Design</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Internships & Certifications Section -->
+    <section id="internships" class="relative py-32">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="reveal mb-16">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-8 h-[1px] bg-orange-500"></div>
+                    <span class="text-[10px] uppercase tracking-widest text-orange-500 font-semibold">Internships & Certifications</span>
+                </div>
+                <h2 class="text-3xl md:text-5xl font-semibold tracking-tight hero-gradient">Learning & growth</h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="reveal delay-100 card-glow p-8 rounded-2xl border border-white/[0.06] bg-white/[0.02] hover:border-white/[0.12] transition-colors group flex flex-col">
+                    <div class="flex items-center gap-3 mb-5">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500/20 to-blue-600/10 border border-blue-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <span class="iconify text-blue-400" data-icon="lucide:traffic-cone" data-width="22"></span>
+                        </div>
+                        <div>
+                            <span class="text-[10px] uppercase tracking-widest text-blue-400 font-semibold">Internship</span>
+                        </div>
+                    </div>
+                    <h3 class="text-lg font-medium tracking-tight mb-2">Adaptive Traffic Signal Control System</h3>
+                    <p class="text-xs text-slate-500 mb-4">GITAM University | Project-Based</p>
+                    <p class="text-sm text-slate-400 leading-relaxed flex-1">
+                        Developed an Adaptive Traffic Signal Control System that dynamically adjusts signal timings based on real-time traffic density, reducing congestion and improving traffic flow efficiency.
+                    </p>
+                    <div class="mt-5 pt-5 border-t border-white/[0.06]">
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-2 py-1 text-[10px] font-medium text-blue-400 bg-blue-500/10 border border-blue-500/20 rounded">Algorithm Design</span>
+                            <span class="px-2 py-1 text-[10px] font-medium text-blue-400 bg-blue-500/10 border border-blue-500/20 rounded">Simulation</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reveal delay-200 card-glow p-8 rounded-2xl border border-white/[0.06] bg-white/[0.02] hover:border-white/[0.12] transition-colors group flex flex-col">
+                    <div class="flex items-center gap-3 mb-5">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-500/20 to-amber-600/10 border border-amber-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <span class="iconify text-amber-400" data-icon="lucide:brain" data-width="22"></span>
+                        </div>
+                        <div>
+                            <span class="text-[10px] uppercase tracking-widest text-amber-400 font-semibold">Certification</span>
+                        </div>
+                    </div>
+                    <h3 class="text-lg font-medium tracking-tight mb-2">AWS Machine Learning Foundations</h3>
+                    <p class="text-xs text-slate-500 mb-4">AWS Academy</p>
+                    <p class="text-sm text-slate-400 leading-relaxed flex-1">
+                        Completed Amazon Web Services Academy training, gaining hands-on exposure to core ML concepts, model training workflows, and AWS AI/ML services.
+                    </p>
+                    <div class="mt-5 pt-5 border-t border-white/[0.06]">
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-2 py-1 text-[10px] font-medium text-amber-400 bg-amber-500/10 border border-amber-500/20 rounded">AWS</span>
+                            <span class="px-2 py-1 text-[10px] font-medium text-amber-400 bg-amber-500/10 border border-amber-500/20 rounded">Machine Learning</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reveal delay-300 card-glow p-8 rounded-2xl border border-white/[0.06] bg-white/[0.02] hover:border-white/[0.12] transition-colors group flex flex-col">
+                    <div class="flex items-center gap-3 mb-5">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-sky-500/20 to-sky-600/10 border border-sky-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <span class="iconify text-sky-400" data-icon="lucide:cloud" data-width="22"></span>
+                        </div>
+                        <div>
+                            <span class="text-[10px] uppercase tracking-widest text-sky-400 font-semibold">Certification</span>
+                        </div>
+                    </div>
+                    <h3 class="text-lg font-medium tracking-tight mb-2">AWS Cloud Foundations</h3>
+                    <p class="text-xs text-slate-500 mb-4">AWS Academy</p>
+                    <p class="text-sm text-slate-400 leading-relaxed flex-1">
+                        Covered core cloud computing concepts, AWS global infrastructure, security architectures, and core cloud-native AWS services.
+                    </p>
+                    <div class="mt-5 pt-5 border-t border-white/[0.06]">
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-2 py-1 text-[10px] font-medium text-sky-400 bg-sky-500/10 border border-sky-500/20 rounded">AWS</span>
+                            <span class="px-2 py-1 text-[10px] font-medium text-sky-400 bg-sky-500/10 border border-sky-500/20 rounded">Cloud Computing</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="relative py-32">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="reveal mb-16">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-8 h-[1px] bg-orange-500"></div>
+                    <span class="text-[10px] uppercase tracking-widest text-orange-500 font-semibold">Education</span>
+                </div>
+                <h2 class="text-3xl md:text-5xl font-semibold tracking-tight hero-gradient">Academic background</h2>
+            </div>
+
+            <div class="reveal delay-100 card-glow rounded-2xl border border-white/[0.06] bg-white/[0.02] overflow-hidden">
+                <div class="grid md:grid-cols-3">
+                    <div class="relative min-h-[250px] md:min-h-[300px] overflow-hidden">
+                        <img src="https://z-cdn-media.chatglm.cn/files/ecf0bc47-af17-4547-84ae-8c2f6415c09a.jpg?auth_key=1880594520-64ac08901204458b94e9560946ab8be5-0-76e21f01ffd6aa1dc314a627a2b8851e" 
+                             alt="GITAM University Bangalore Campus" 
+                             class="absolute inset-0 w-full h-full object-cover"
+                             onerror="this.onerror=null; this.src='https://picsum.photos/seed/gitam-bangalore-campus/800/600.jpg';">
+                        <div class="project-overlay absolute inset-0"></div>
+                        <div class="absolute bottom-4 left-4 z-10">
+                            <span class="px-3 py-1 text-[10px] font-semibold uppercase tracking-widest bg-emerald-500 text-white rounded-full">2021 – 2025</span>
+                        </div>
+                    </div>
+                    <div class="md:col-span-2 p-8 md:p-10 flex flex-col justify-center">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center">
+                                <span class="iconify text-emerald-400" data-icon="lucide:graduation-cap" data-width="20"></span>
+                            </div>
+                            <span class="text-[10px] uppercase tracking-widest text-emerald-400 font-semibold">Bachelor's Degree</span>
+                        </div>
+                        <h3 class="text-xl md:text-2xl font-medium tracking-tight mb-2">Gandhi Institute of Technology and Management</h3>
+                        <p class="text-sm text-slate-400 mb-1">Bangalore, India</p>
+                        <p class="text-base text-slate-300 font-medium mb-4">Bachelor of Technology in Computer Science and Engineering</p>
+                        <p class="text-sm text-slate-500 leading-relaxed">
+                            Built a strong foundation in computer science fundamentals, data structures, algorithms, and software engineering principles. Gained practical experience through projects and internships in full-stack development and cloud technologies.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="relative py-32">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="reveal mb-16 text-center">
+                <div class="flex items-center justify-center gap-3 mb-4">
+                    <div class="w-8 h-[1px] bg-orange-500"></div>
+                    <span class="text-[10px] uppercase tracking-widest text-orange-500 font-semibold">Contact</span>
+                    <div class="w-8 h-[1px] bg-orange-500"></div>
+                </div>
+                <h2 class="text-3xl md:text-5xl font-semibold tracking-tight hero-gradient">Let's work together</h2>
+                <p class="text-base font-light text-slate-400 mt-4 max-w-xl mx-auto leading-relaxed">
+                    Have a project in mind or want to discuss opportunities? I'd love to hear from you.
+                </p>
+            </div>
+
+            <div class="max-w-2xl mx-auto">
+                <div class="reveal delay-100 card-glow rounded-2xl border border-white/[0.06] bg-white/[0.02] p-8 md:p-12" style="box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);">
+                    <form id="contactForm" class="space-y-6">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-xs font-medium text-slate-400 mb-2 uppercase tracking-wider">Name</label>
+                                <input type="text" id="nameInput" required placeholder="Your name" class="w-full px-4 py-3 rounded-xl bg-white/[0.03] border border-white/[0.08] text-sm text-white placeholder-slate-600 focus:outline-none focus:border-orange-500/50 focus:ring-1 focus:ring-orange-500/20 transition-all">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-slate-400 mb-2 uppercase tracking-wider">Email</label>
+                                <input type="email" id="emailInput" required placeholder="you@example.com" class="w-full px-4 py-3 rounded-xl bg-white/[0.03] border border-white/[0.08] text-sm text-white placeholder-slate-600 focus:outline-none focus:border-orange-500/50 focus:ring-1 focus:ring-orange-500/20 transition-all">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-400 mb-2 uppercase tracking-wider">Subject</label>
+                            <input type="text" id="subjectInput" placeholder="What's this about?" class="w-full px-4 py-3 rounded-xl bg-white/[0.03] border border-white/[0.08] text-sm text-white placeholder-slate-600 focus:outline-none focus:border-orange-500/50 focus:ring-1 focus:ring-orange-500/20 transition-all">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-400 mb-2 uppercase tracking-wider">Message</label>
+                            <textarea id="messageInput" required rows="5" placeholder="Tell me about your project..." class="w-full px-4 py-3 rounded-xl bg-white/[0.03] border border-white/[0.08] text-sm text-white placeholder-slate-600 focus:outline-none focus:border-orange-500/50 focus:ring-1 focus:ring-orange-500/20 transition-all resize-none"></textarea>
+                        </div>
+                        <button type="submit" class="w-full inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-white text-black text-sm font-medium rounded-full hover:bg-slate-200 transition-all duration-150 btn-shine" style="box-shadow: 0 0 20px rgba(255,255,255,0.1);">
+                            Send Message
+                            <span class="iconify" data-icon="lucide:send" data-width="14"></span>
+                        </button>
+                    </form>
+                </div>
+
+                <div class="reveal delay-200 flex items-center justify-center gap-4 mt-10">
+                    <a href="https://linkedin.com/in/jayachandra-gudipadu" target="_blank" class="w-12 h-12 rounded-xl border border-white/[0.08] bg-white/[0.02] flex items-center justify-center text-slate-400 hover:text-white hover:border-white/[0.2] hover:bg-white/[0.05] transition-all">
+                        <span class="iconify" data-icon="lucide:linkedin" data-width="18"></span>
+                    </a>
+                    <a href="https://github.com/JayanthJC007" target="_blank" class="w-12 h-12 rounded-xl border border-white/[0.08] bg-white/[0.02] flex items-center justify-center text-slate-400 hover:text-white hover:border-white/[0.2] hover:bg-white/[0.05] transition-all">
+                        <span class="iconify" data-icon="lucide:github" data-width="18"></span>
+                    </a>
+                    <a href="mailto:jayachandra5550@gmail.com" class="w-12 h-12 rounded-xl border border-white/[0.08] bg-white/[0.02] flex items-center justify-center text-slate-400 hover:text-white hover:border-white/[0.2] hover:bg-white/[0.05] transition-all">
+                        <span class="iconify" data-icon="lucide:mail" data-width="18"></span>
+                    </a>
+                    <a href="tel:+918341914363" class="w-12 h-12 rounded-xl border border-white/[0.08] bg-white/[0.02] flex items-center justify-center text-slate-400 hover:text-white hover:border-white/[0.2] hover:bg-white/[0.05] transition-all">
+                        <span class="iconify" data-icon="lucide:phone" data-width="18"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/[0.06] py-12">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-6 h-6 rounded-md bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center">
+                        <span class="text-white font-semibold text-[10px]">J</span>
+                    </div>
+                    <span class="text-sm text-slate-500">© 2025 Jayachandra Gudipadu. All rights reserved.</span>
+                </div>
+                <div class="flex items-center gap-6">
+                    <a href="https://linkedin.com/in/jayachandra-gudipadu" target="_blank" class="text-xs text-slate-500 hover:text-white transition-colors">LinkedIn</a>
+                    <a href="https://github.com/JayanthJC007" target="_blank" class="text-xs text-slate-500 hover:text-white transition-colors">GitHub</a>
+                    <a href="mailto:jayachandra5550@gmail.com" class="text-xs text-slate-500 hover:text-white transition-colors">Email</a>
+                </div>
+            </div>
+            <div class="mt-6 text-center">
+                <p class="text-[10px] text-slate-700 uppercase tracking-widest">Crafted with precision & passion</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast fixed bottom-6 right-6 z-50 flex items-center gap-3 px-5 py-3 rounded-xl border border-emerald-500/20 bg-emerald-500/10 backdrop-blur-xl">
+        <span class="iconify text-emerald-400" data-icon="lucide:check-circle" data-width="18"></span>
+        <span class="text-sm text-emerald-300 font-medium">Message sent successfully!</span>
+    </div>
+
+    <script>
+        // ====== Reveal on Scroll ======
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // ====== Navbar Scroll Effect ======
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 80) {
+                navbar.style.background = 'rgba(5,5,5,0.9)';
+                navbar.style.borderBottomColor = 'rgba(255,255,255,0.08)';
+            } else {
+                navbar.style.background = 'rgba(5,5,5,0.8)';
+                navbar.style.borderBottomColor = 'rgba(255,255,255,0.06)';
+            }
+        });
+
+        // ====== Active Nav Link Highlight ======
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-link');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                if (window.pageYOffset >= section.offsetTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) link.classList.add('active');
+            });
+        });
+
+        // ====== Mobile Menu ======
+        const mobileToggle = document.getElementById('mobileToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuIcon = document.getElementById('menuIcon');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+        let menuOpen = false;
+
+        mobileToggle.addEventListener('click', () => {
+            menuOpen = !menuOpen;
+            mobileMenu.classList.toggle('open', menuOpen);
+            menuIcon.setAttribute('data-icon', menuOpen ? 'lucide:x' : 'lucide:menu');
+            document.body.style.overflow = menuOpen ? 'hidden' : '';
+        });
+
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menuOpen = false;
+                mobileMenu.classList.remove('open');
+                menuIcon.setAttribute('data-icon', 'lucide:menu');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // ====== Card Glow Mouse Follow ======
+        document.querySelectorAll('.card-glow').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                card.style.setProperty('--mouse-x', ((e.clientX - rect.left) / rect.width) * 100 + '%');
+                card.style.setProperty('--mouse-y', ((e.clientY - rect.top) / rect.height) * 100 + '%');
+            });
+        });
+
+        // ====== Counter Animation ======
+        const counters = document.querySelectorAll('.counter-value');
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = parseInt(entry.target.getAttribute('data-target'));
+                    const suffix = entry.target.getAttribute('data-suffix') || '';
+                    let current = 0;
+                    const duration = 1500;
+                    const steps = 50;
+                    const increment = target / steps;
+                    const stepTime = duration / steps;
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= target) { current = target; clearInterval(timer); }
+                        entry.target.textContent = Math.round(current) + suffix;
+                    }, stepTime);
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        counters.forEach(counter => counterObserver.observe(counter));
+
+        // ====== Futuristic HUD Terminal Typing ======
+        const commands = [
+            "dotnet build API.Core",
+            "git push origin main",
+            "sqlcmd -i stored_procs.sql",
+            "dotnet run --launch-profile Prod",
+            "dotnet publish -c Release"
+        ];
+        let cmdIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const terminalText = document.getElementById('terminal-text');
+
+        function typeTerminal() {
+            if (!terminalText) return;
+            const currentCmd = commands[cmdIndex];
+            
+            if (!isDeleting) {
+                terminalText.textContent = currentCmd.substring(0, charIndex + 1);
+                charIndex++;
+                if (charIndex === currentCmd.length) {
+                    isDeleting = true;
+                    setTimeout(typeTerminal, 2000);
+                    return;
+                }
+            } else {
+                terminalText.textContent = currentCmd.substring(0, charIndex - 1);
+                charIndex--;
+                if (charIndex === 0) {
+                    isDeleting = false;
+                    cmdIndex = (cmdIndex + 1) % commands.length;
+                }
+            }
+            setTimeout(typeTerminal, isDeleting ? 40 : 80);
+        }
+        typeTerminal();
+
+        // ====== Contact Form ======
+        const contactForm = document.getElementById('contactForm');
+        const toast = document.getElementById('toast');
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            toast.classList.add('show');
+            contactForm.reset();
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        });
+
+        // ====== Smooth Scroll ======
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+    </script>
+</body>
+</html>
